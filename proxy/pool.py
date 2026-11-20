@@ -16,7 +16,9 @@ log = logging.getLogger('tg-mtproto-proxy')
 
 
 class _WsPool:
-    WS_POOL_MAX_AGE = 120.0
+    # Telegram closes idle /apiws sessions itself at ~90s. Keeping sockets
+    # longer only hands dead connections to the next client.
+    WS_POOL_MAX_AGE = 60.0
     WS_POOL_CHECK_INTERVAL = 5.0
     REFILL_BACKOFF_INITIAL = 1.0
     REFILL_BACKOFF_MAX = 3600.0
